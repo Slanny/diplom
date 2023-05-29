@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+<meta charset="UTF-8" />
+<title>Методическое пособие микроконтроллера STM32</title>
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="templatemo_wrapper_outer">
+    <div id="templatemo_wrapper_inner">
+	
+        <div id="templatemo_banner"></div> <!-- end of banner -->
+    
+        <div id="templatemo_menu">
+	       <ul>
+               <li><a href="index.html">Главная</a></li>
+               <li><a href="theory.html">Теория</a></li>
+               <li><a href="video.html">Видеоматериалы</a></li>
+               <li><a href="lab.html">Лабораторные работы</a></li>
+               <li><a href="tests.html">Тесты</a></li>
+            </ul>
+        </div> <!-- end of menu -->
+    
+        <div id="templatemo_content_wrapper">
+    
+    	   <div class="templatemo_side_bar margin_right_10">
+               <div class="header_01">Категории</div>
+               <ul>
+                   <li><a href="main_info.html">Документация</a></li>
+                    <li><a href="mcu.html">Микроконтроллер STM32</a></li>
+                    <li><a href="arduino.html">Arduino</a></li>
+                    <li><a href="ide.html">Настройка среды разработки STM32CubeIDE</a></li>
+                    <li><a href="peripheral.html">Работа с переферийными устройствами</a></li>
+                    <li><a href="clanguage.html">Программирование на языке Си</a></li>
+                    <li><a href="info_site.html">О сайте</a></li>
+                </ul>
+			
+                <div class="margin_bottom_20"></div>
+            </div> <!-- end of left side bar -->
+        
+            <div class="templatemo_content margin_right_10">
+                <div class="content_section">
+                    <div class="header_01">Управление портами ввода-вывода через регистры CMSIS</div>
+                    <p>
+                        Одним из способов формирования начальной конфигурации является использование STM32CubeMX и библиотеки HAL. Для передачи данных в программе можно использовать регистры CMSIS. Обычно начальные настройки остаются неизменными в течение выполнения программы.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        С портами ввода-вывода все более сложно. Их использование затрудняется как высокочастотными сигналами, так и необходимостью оперативно изменять режимы работы. В определенных случаях, особенно при двунаправленных сигналах, может потребоваться быстрое изменение порта на режим входа или выхода.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        В связи с этим, прямое управление портами ввода-вывода через доступ к регистрам является широко используемым методом.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Для примера мы собираемся установить режимы работы:
+                    </p>
+                    <ul>
+                        <li>Для вывода PB12 – вход с подтягивающим резистором к шине питания;</li>
+                        <li>Для вывода PB13 – активный выход.</li>
+                    </ul>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Позже подключим к этим выводам кнопку и светодиод, напишем управляющую программу.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Для конфигурации порта GPIOB необходимо выполнить определенную последовательность действий.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Прежде всего, разрешить работу порта в регистре Разрешения тактирования периферийных устройств шины APB2 (APB2 peripheral clock enable register) RCC_APB2ENR. За порт B отвечает бит IOPBEN. Установим его в 1.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Конфигурирование этой операции уже было выполнено за нас с помощью STM32CubeMX. Нам оставалось только выбрать активные выводы, соответствующие порту B.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Биты конфигурации и режима для вывода PB12 расположены в регистре:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOB_CRH, биты CNF12[1:0] и MODE12[1:0].
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Смотрим по таблицам режима и конфигурации портов. Надо установить состояние:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        CNF12[1:0], MODE12[1:0]  = 10, 00 (режим вход).
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Установка состояния в регистрах конфигурации.
+                    </p>
+                    <div class="image_wrapper_01"><img src="images/site_3/pic_1_site_3.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Структура для регистров портов в нем описана так.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Typedef struct
+                    </p>
+                    <p>
+                        {
+                    </p>
+                    <p>
+                        __IO uint32_t CRL;
+                    </p>
+                    <p>
+                        __IO uint32_t CRH;
+                    </p>
+                    <p>
+                        __IO uint32_t IDR;
+                    </p>
+                    <p>
+                        __IO uint32_t ODR;
+                    </p>
+                    <p>
+                        __IO uint32_t BSRR;
+                    </p>
+                    <p>
+                        __IO uint32_t BRR;
+                    </p>  
+                    <p>
+                        __IO uint32_t LCKR;
+                    </p>
+                    <p>
+                        } GPIO_TypeDef;
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        В ней все наши регистры для управления портами ввода-вывода, о которых мы говорили в предыдущем уроке.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Мы должны установить в регистре GPIOB_CRH, биты 19-16 в состояние 1000. Можно просто загрузить в регистр данное.
+                    </p>
+                    
+                    <p>
+                        GPIOB->CRH = 0x00080000;
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        В этом случае мы сбросим все остальные биты. Что-то перестанет работать. Но если в загружаемом числе сформировать все биты этого регистра сразу, то способ вполне допустимый. Более того это самый быстрый и короткий вариант.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Если мы хотим затронуть только нужные  биты, то можно сделать так.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOB->CRH &= 0xfff0ffff;  // сбрасываем биты 16-19
+                    </p>
+                    <p>
+                        GPIOB->CRH |= 0x00080000;  // устанавливаем биты
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Вариант быстрый, но запутанный. Надо вычислять расположение битов в слове, большая вероятность ошибки.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Можно несколько упростить, используя операцию сдвига.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOB->CRH &=  ~ ( 0b1111 << 16 ); // сбрасываем биты 16-19
+                    </p>
+                    <p>
+                        GPIOB->CRH |= 0b1000 << 16;  // устанавливаем биты
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Все вычисления с константами компилятор сделает на этапе трансляции и в правой части операций получатся точно такие числа, как и в предыдущем варианте.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        В файле stm32f103xb.h есть имена и для битов регистра GPIOx_CRH. Вот, что касается 12го разряда.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_3/pic_2_site_3.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Установка регистра конфигурации с использованием имен битов выглядит так.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOB->CRH &=  ~ (GPIO_CRH_CNF12 | GPIO_CRH_MODE12); // сбрасываем биты полей CNF и MODE
+                    </p>
+                    <p>
+                        GPIOB->CRH |= (0b10 << GPIO_CRH_CNF12_Pos) | (0b00 << GPIO_CRH_MODE12_Pos)  ;  // устанавливаем биты
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Это предпочтительный, общепринятый способ доступа к отдельным полям регистров.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Установим таким способом вывод PB13 в режим выхода. Для этого надо в поля CNF13[1:0], MODE13[1:0] установить   = 00, 10 (режим выход).
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOB->CRH &=  ~ (GPIO_CRH_CNF13 | GPIO_CRH_MODE13); // сбрасываем биты полей CNF и MODE
+                    </p>
+                    <p>
+                        GPIOB->CRH |= (0b00 << GPIO_CRH_CNF13_Pos) | (0b10 << GPIO_CRH_MODE13_Pos)  ;  // устанавливаем биты
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Теперь попробуем считать и установить состояния выводов. Давайте подключим к выводу PB12 кнопку, а к выводу PB13 светодиод.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_3/pic_3_site_3.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        И напишем программу, которая управляет светодиодом с помощью кнопки. Кнопка нажата – светодиод светится, отжата – светодиод погашен.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Считать состояние вывода можно через регистр ввода данных.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        В структуре GPIO_TypeDef это регистр IDR. Проверяем 12й бит.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_3/pic_4_site_3.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Для бита 12 регистра IDR есть имя, но оно не сильно улучшает читаемость программы.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_3/pic_5_site_3.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Используя имя бита можно написать:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        If( (GPIOB->IDR & GPIO_IDR_IDR12) == 0 ) {
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Теперь об установке логического состояния выхода. Есть несколько вариантов.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Первый – через регистр вывода. Установка бита 13:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOB->ODR |= 1 << 13;
+                        Или
+                        GPIOB->ODR |= GPIO_ODR_ODR13;
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Сброс бита 13:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOB->ODR &= ~(1 << 13);
+                        Или
+                        GPIOB->ODR &= ~ GPIO_ODR_ODR13;
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Вставляем в логические блоки включение и выключение светодиода.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_3/pic_6_site_3.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        И всю эту конструкцию в цикл while(1) в файле main.c.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Для установки состояния вывода порта мы использовали последовательность: чтение регистра вывода данных, установку бита и запись в этот же регистр. В предыдущем уроке я писал про регистр установки/сброса битов, с помощью которого можно выполнить изменение состояния выхода одним обращением к регистру.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Если нам надо установить вывод PB13  в 1, то:
+                    </p>
+                    <p>
+                        GPIOB -> BSRR = GPIO_BSRR_BS13;  // установка бита
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Для сброса бита надо выполнить команду:
+                    </p>
+                    <p>
+                        GPIOB -> BSRR = GPIO_BSRR_BR13;  // сброс бита
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Можно сбросить или установить сразу несколько битов одним обращением к регистру BSRR. Это будет выглядеть так.
+                    </p>
+                    <p>
+                        GPIOB -> BSRR = GPIO_BSRR_BS10 | GPIO_BSRR_BS15 | GPIO_BSRR_BR11 | GPIO_BSRR_BR12; // установить биты 10 и 15, сбросить биты 11 и 12
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Проверяем в программе.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="iamge_wrapper_01"><img src="images/site_3/pic_7_site_3.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Еще для завершения конфигурации портов надо установить 1 в регистр вывода данных для бита PB12, настроенного на вход. Тем самым мы подключим подтягивающий резистор к шине питания, а не к земле.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOB -> BSRR = GPIO_BSRR_BS12;  // подтягивающий резистор к + 3 В
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Добавим эту строку в блок начальной конфигурации портов.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        С регистром защиты LCKR разберетесь сами. Установка и сброс битов:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOB -> LCKR |= GPIO_LCKR_LCK12 | GPIO_LCKR_LCK13;
+                    </p>
+                    <p>
+                        GPIOB -> LCKR &= ~ (GPIO_LCKR_LCK110 | GPIO_LCKR_LCK11);
+                    </p>
+                    <p>
+                        GPIOB -> LCKR |= GPIO_LCKR_LCKK;
+                    </p>
+                    <p>
+                        GPIOB -> LCKR &= ~ GPIO_LCKR_LCKK;
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                    Автор: Эдуард
+                </p>
+                <div class="margin_bottom_10"></div>
+                </div>
+            </div> <!-- end of content -->
+        
+            <div class="templatemo_side_bar">	
+                <div class="header_01">Микроконтроллер STM32</div>
+            
+                <div class="right_bar border_bottom">
+                    <p>
+                        Одна из линеек микроконтроллеров, которые производит компания STMicroelectronics.
+                    </p>
+                </div>
+                        
+                <div class="margin_bottom_10"></div>
+            
+                <div class="right_bar">
+                    <div class="header_01">Применяемость</div>
+                    <p>
+                        Создана для широкого спектра применений, и применяются в различных областях, включая автоматизацию домашней электроники, транспортные средства, медицинские устройства, устройства IoT, промышленные автоматизированные системы и различные приборы и устройства.
+                    </p>
+                </div>
+ 
+                <div class="margin_bottom_10"></div>
+                
+            </div> <!-- end of right side bar -->
+    	
+            <div class="cleaner"></div>    
+        </div> <!-- end of content wrapper -->
+    
+    </div>
+    </div>
+
+<div id="templatemo_footer">
+    <a href="#">alsou2070@gmail.com<br></a>
+    <a href="#">© 2023 Все права защищены</a>
+</div> <!-- end of footer -->
+    
+    <div class="margin_bottom_10"></div>
+    
+    <div class="content_section">
+		<div class="margin_bottom_10"></div>
+	</div>
+</body>
+</html>

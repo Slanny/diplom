@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+<meta charset="UTF-8" />
+<title>Методическое пособие микроконтроллера STM32</title>
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="templatemo_wrapper_outer">
+<div id="templatemo_wrapper_inner">
+	
+    <div id="templatemo_banner"></div> <!-- end of banner -->
+    
+    <div id="templatemo_menu">
+	    <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="theory.html">Теория</a></li>
+            <li><a href="video.html">Видеоматериалы</a></li>
+            <li><a href="lab.html">Лабораторные работы</a></li>
+            <li><a href="tests.html">Тесты</a></li>
+        </ul>
+    </div> <!-- end of menu -->
+    
+    <div id="templatemo_content_wrapper">
+    
+    	<div class="templatemo_side_bar margin_right_10">
+        	
+            <div class="header_01">Категории</div>
+            	<ul>
+                	<li><a href="main_info.html">Документация</a></li>
+                    <li><a href="mcu.html">Микроконтроллер STM32</a></li>
+                    <li><a href="arduino.html">Arduino</a></li>
+                    <li><a href="ide.html">Настройка среды разработки STM32CubeIDE</a></li>
+                    <li><a href="peripheral.html">Работа с переферийными устройствами</a></li>
+                    <li><a href="clanguage.html">Программирование на языке Си</a></li>
+                    <li><a href="info_site.html">О сайте</a></li>
+                </ul>
+
+            <div class="margin_bottom_20"></div>
+        </div> <!-- end of left side bar -->
+        
+        <div class="templatemo_content margin_right_10">
+        
+        	<div class="content_section">
+                <div class="header_02">ADC (Analog-to-Digital Converter)</div>
+                 <p>
+                    ADC (Analog-to-Digital Converter) - это устройства, которые могут преобразовывать аналоговый сигнал в цифровой. Они используются для считывания сенсорных данных, таких как температура, освещенность или звук.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Принцип работы ADC заключается в оцифровке аналогового сигнала. Основные этапы работы ADC включают в себя:
+                </p>
+                <ul>
+                    <li>Настройка устройства: установка параметров АЦП таких как частота дискретизации, разрешение, диапазон входного сигнала и другие характеристики.</li>
+                    <li>Преобразование аналогового сигнала: ADC преобразует аналоговый сигнал в цифровой формат. Дискретизация происходит с заданной частотой дискретизации, которая зависит от частоты сигнала и выборки.</li>
+                    <li>Обработка цифровых данных: после получения цифровых данных, их могут обрабатывать другие цифровые устройства с помощью программного обеспечения для анализа и обработки данных.</li>
+                </ul>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Для выбора подходящего ADC необходимо учитывать множество параметров, таких как частота сигнала, разрешение, точность, динамический диапазон, мощность и другие характеристики. ADC могут быть реализованы как в виде отдельного устройства, так и встроенными в микроконтроллеры или другие полупроводниковые устройства.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Пример кода на языке С:
+                </p>
+                <div class="image_wrapper_01"><img src="images/adc/pic_1_adc.jpg" atl="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    В данном примере происходит выбор входного канала (ADC0) и опорного напряжения (AVCC), а затем с помощью регистров ADCSRA и ADC читается текущее значение на этом канале. Также в цикле можно добавить обработку полученного значения, например, вывод на дисплей или передачу по интерфейсу связи.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    В целом, использование ADC может значительно улучшить производительность системы, обеспечивая точное и надежное оцифрование аналогового сигнала. Например, применение ADC может быть полезным в анализе звуковых колебаний, обработке сигналов от датчиков и в многих других приложениях.
+                </p>
+                <div class="margin_bottom_20"></div>
+            </div>
+        </div> <!-- end of content -->
+        
+        <div class="templatemo_side_bar">
+       		
+            	
+            <div class="header_01">Работа с переферийными устройствами</div>
+            
+            <div class="right_bar border_bottom">
+                <p>
+                    Микроконтроллеры STM32 имеют множество периферийных устройств, которые могут использоваться для выполнения различных задач, таких как звуковой сигнализации, управления двигателем или считывания сенсорных данных. Вот несколько типов периферийных устройств, которые доступны в микроконтроллерах STM32.
+                </p>
+			</div>  
+			<div class="margin_bottom_20"></div>
+	      </div>
+                        
+          <div class="margin_bottom_10"></div>
+        </div> <!-- end of right side bar -->
+    	
+        <div class="cleaner"></div>    
+    </div> <!-- end of content wrapper -->
+    
+</div>
+</div>
+
+<div id="templatemo_footer">
+    <a href="#">alsou2070@gmail.com<br></a>
+    <a href="#">© 2023 Все права защищены</a>
+</div> <!-- end of footer -->
+    
+    <div class="margin_bottom_10"></div>
+    
+    <div class="content_section">
+		<div class="margin_bottom_10"></div>
+	</div>
+</body>
+</html>

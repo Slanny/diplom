@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+<meta charset="UTF-8" />
+<title>Методическое пособие микроконтроллера STM32</title>
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="templatemo_wrapper_outer">
+<div id="templatemo_wrapper_inner">
+	
+    <div id="templatemo_banner"></div> <!-- end of banner -->
+    
+    <div id="templatemo_menu">
+	    <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="theory.html">Теория</a></li>
+            <li><a href="video.html">Видеоматериалы</a></li>
+            <li><a href="lab.html">Лабораторные работы</a></li>
+            <li><a href="tests.html">Тесты</a></li>
+        </ul>
+    </div> <!-- end of menu -->
+    
+    <div id="templatemo_content_wrapper">
+    
+    	<div class="templatemo_side_bar margin_right_10">
+        	
+            <div class="header_01">Категории</div>
+            	<ul>
+                	<li><a href="main_info.html">Документация</a></li>
+                    <li><a href="mcu.html">Микроконтроллер STM32</a></li>
+                    <li><a href="arduino.html">Arduino</a></li>
+                    <li><a href="ide.html">Настройка среды разработки STM32CubeIDE</a></li>
+                    <li><a href="peripheral.html">Работа с переферийными устройствами</a></li>
+                    <li><a href="clanguage.html">Программирование на языке Си</a></li>
+                    <li><a href="info_site.html">О сайте</a></li>
+                </ul>
+            <div class="margin_bottom_20"></div>
+        </div> <!-- end of left side bar -->
+        
+        <div class="templatemo_content margin_right_10">
+        
+        	<div class="content_section">
+           	    <div class="header_02">Настройка среды разработки STM32CubeIDE</div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    STM32CubeIDE представляет собой C/C++ платформу разработки для микроконтроллеров и микропроцессоров STM32, обладающую возможностью конфигурации периферии, функциями генерации, компиляции кода и отладки. Основана на инфраструктуре ECLIPSE™/CDT и GCC для разработки, также GDB для отладки. Это позволяет интегрировать сотни существующих плагинов, которые дополняют функции ECLIPSE™ IDE [9]. STM32CubeIDE объединяет все функциональные возможности STM32CubeMX, предлагая универсальный инструмент и экономя время на установку и разработку. После выбора микроконтроллера создается проект и генерируется код инициализации. В любой момент во время разработки пользователь может вернуться к настройке периферийных устройств, чтобы повторно сгенерировать код инициализации. Код-генератор, в процессе формирования файлов проекта, расставляет комментарии вида: /* USER CODE BEGIN 1 */ … /* USER CODE END 1 */. Во избежание потери изменений (при повторной генерации), внесенных пользователем, код должен находиться между комментариями. Код-генератор STM32CubeIDE содержит инструмент анализа содержимого стека, который предоставляет пользователю полезную информацию о состоянии проекта и требованиях к памяти. STM32CubeIDE также включает в себя стандартные и расширенные функции отладки: просмотр регистров ядра ЦП, оценка текущего состояния памяти/периферийных регистров, а также просмотр значений переменных в реальном времени, интерфейс Serial Wire Viewer или инструмент анализа неисправностей.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="header_02">Основные особенности STM32CubeIDE.</div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Интеграция функционала STM32CubeMX обеспечивает возможность:
+                </p>
+                <ul>
+                    <li>выбирать STM32 микроконтроллер/микропроцессор в интегрированной среде разработки;</li>
+                    <li>осуществлять конфигурацию линий, таймеров, периферии и стандартных протоколов;</li>
+                    <li>создавать проект и генерировать код инициализации.</li>
+                </ul>
+                <p>
+                    Расширены функции отладки, в том числе:
+                </p>
+                <ul>
+                    <li>мониторинг периферийных регистров и памяти;</li>
+                    <li>просмотр значений переменных в реальном времени;</li>
+                    <li>анализ системы и отслеживание ее состояния в реальном времени (SWV);</li>
+                    <li>инструмент анализа ошибок процессора;</li>
+                    <li>поддержка отладочных средств ST-LINK (STMicroelectronics) и J-Link (SEGGER);</li>
+                    <li>возможность импорта проектов из Atollic® TrueSTUDIO® и AC6 System Workbench for STM32 (SW4STM32).</li>
+                </ul>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    В отличие от STM32CubeMX интерфейс STM32CubeIDE в правой части дополнительно содержит обозреватель всех открытых проектов («Project Explorer») рабочего пространства, в верхней части располагается панель инструментов.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Тип проекта, созданного мастером проектов, зависит от семейства устройств. Проект содержит все необходимые элементы встроенного приложения, готовые для программирования и запуска. Если в рабочей области существует несколько проектов, их можно закрыть, щелкнув правой кнопкой мыши на имя проекта в представлении «Project Explorer», а затем выбрать «Close Project». Открыть проект можно аналогично, выбрав File → Open Projects from File System….
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Начальны вид проекта в STM32CubelIDE:
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="image_wrapper_01"><img src="images/ide/pic_1_ide.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Чтобы сгенерировать проект можно воспользоваться инструментом («Device Configuration Tool Code Generation»), доступным из панели управления при активной перспективе «Device Configuration Tool».
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="image_wrapper_01"><img src="images/ide/pic_2_ide.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Показан пример сгенерированного код-генератором проекта. Видна его структура, а также используемые библиотеки HAL-функций. Следует заметить, что к проекту подключаются библиотеки HAL, используемые для работы с подключенным и сконфигурированным оборудованием.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Список заголовочных файлов HAL, подключенных к проекту.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="image_wrapper_01"><img src="images/ide/pic_3_ide.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Функции, реализованные в файлах, можно посмотреть на вкладке «Outline. При этом должна быть активна перспектива «C/C++»
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="image_wrapper_01"><img src="images/ide/pic_3_ide.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Для просмотра функций, реализованных в библиотеке, необходимо чтобы в центральной рабочей зоне был открыт интересующий файл. Если в списке «Outline» выбрать определение или функцию, среда разработки спозиционирует курсор на реализации функции в библиотеке. Для примера на рисунке 6 показана реализация функции HAL_GPIO_ReadPin: GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin) 
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="image_wrapper_01"><img src="images/ide/pic_4_ide.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                   Из описания видно, что функция отвечает за чтение состояния указанного разряда заданного порта. В качестве параметров в функцию передаются: GPIOx – порт (возможные варианты: GPIOA … GPIOG) и GPIO_Pin – номер вывода (варианты: GPIO_PIN_0 … GPIO_PIN_15). В качестве результата функция возвращает PinState – состояние вывода. Состояние цифрового вывода может принимать значения: GPIO_PIN_SET – высокий уровень; GPIO_PIN_RESET – низкий уровень.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Все значки элементов панели управления имеют всплывающие подсказки, которые появляются при наведении указателя мыши. Значки являются ярлыками для функций, которые можно активировать из пунктов главного меню.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    В качестве зонда (средства программирования и отладки) («Debug probe», см. рисунок 7) среда предоставляет: ST-LINK (ST-LINK GDB server), SEGGER J-LINK и ST-LINK (OpenOCD). Для используемого программатора (ST-Link V2) необходимо выбрать ST-LINK (OpenOCD). Прошивку программатора обновлять не рекомендуется, поскольку это может привести к потере работоспособности устройства.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    В качестве интерфейса отладки рекомендуется использовать интерфейс Serial Wire Debug (SWD). Он должен быть включен в диалоговом окне конфигурации отладки. Чтобы перейти к настройкам SWD, нажмите на вкладку «Debugger» в соответствующей конфигурации отладки (Run → Debug Configurations), и включите SWD. Если внесены изменения в настройки (диалоговое окно свойств конфигурации запуска), их необходимо сохранить, нажав кнопку «Apply».  
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Окно выбора интерфеса отладки Serial Wire Debug
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="image_wrapper_01"><img src="images/ide/pic_5_ide.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    В начале сеанса отладки запускается драйвер отладчика и сервер OpenOCD, а также приложение и вспомагательные модули, вызываемые в сценарии запуска. На этом этапе приложение обычно останавливается в первой строке функции main ().
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Чтобы установить точку останова, нажмите на синюю горизонтальную полосу рядом с номером строки в коде. Основной исполняемый код вносится в файл «main.c», располагаемый в папке Core → Src (справедливо в случае автоматической генерации проекта код-генератором). Для просмотра областей памяти используются соответствующие окна. По умолчанию при компиляции создается elf-файл. Для формирования hex-файла необходимо перейти в меню Project → Properties, далее в древовидной структуре выбрать раздел C/C++ Build → Settings, во вкладке «Tool Settings» в разделе «MCU Post build outputs» выбрать опцию «Convert to Intel Hex file (-O ihex)» и нажать кнопку «Apply and Close» (рисунок 8). После выполнения указанных настроек при компиляции дополнительно к выбранным будет формироваться hex-файл.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    В режиме отладки содержание регистров ядра отражается во вкладке «Registers», а регистров специального назначения (Special Function Registers) во вкладке SFRs. Принудительное чтение содержания выбранного регистра осуществляется по нажатию кнопки «RD».
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Значения переменных или выражений можно видеть в реальном времени во вкладке «Live Expressions». Чтобы добавить переменную для просмотра, необходимо нажать на «Add new expression» и ввести имя переменной.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    При этом существует возможность анализа используемой памяти в задачах оптимизации ресурсов с помощью «Build Analyzer», который доступен через меню Window → Show View → Build Analyzer. 
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Настройка результатов компиляции
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="image_wrapper_01"><img src="images/ide/pic_6_ide.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Просмотр содержимого регистров
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="image_wrapper_01"><img src="images/ide/pic_7_ide.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Просмотр значений переменных
+                </p>
+                <div class="margin_bottom_10"></div>
+                <div class="image_wrapper_01"><img src="images/ide/pic_8_ide.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Таким образом, работа в STM32CubeIDE мало чем отличается от работы в SW4STM32 + STM32CubeMX. При этом пользователю не нужно переключаться между двумя инструментами и все операции проводятся в одной IDE, что позволяет сократить время разработки и снизить количество ошибок. По этой же причине в настоящем пособии не рассматривается поддерживаемая STMicroelectronics среда разработки winIDEA Open, т.к. она, так же как и SW4STM32, является отдельным инструментом. В отличие от Keil доступна версия STM32CubeIDE для установки в операционной системе Linux, что позволяет снизить риск блокировки работы при ограничениях, связанных с географическим расположением региона, в котором ведется разработка продукта. Несмотря на указанные преимущества, STM32CubeIDE является новой средой разработки (первая версия стала доступна весной 2019). В связи с этим, данной среде, как и остальным новым программным продуктам, присущи ограниченный функционал и периодически возникающие в процессе работы ошибки. Данные обстоятельства явились основанием для использования SW4STM32 в качестве основной среды разработки при рассмотрении примеров программирования микроконтроллера в настоящем пособии.
+                </p>
+            </div>
+        	<div class="margin_bottom_20"></div>
+        </div> <!-- end of content -->
+        
+        <div class="templatemo_side_bar">
+       		
+            <div class="header_01">Микроконтроллер STM32</div>
+            
+            <div class="right_bar border_bottom">
+                <p>Одна из линеек микроконтроллеров, которые производит компания STMicroelectronics.</p>
+			</div>
+                        
+            <div class="margin_bottom_10"></div>
+            
+			<div class="right_bar">
+                <div class="header_01">Применяемость</div>
+                <p>
+                    Создана для широкого спектра применений, и применяются в различных областях, включая автоматизацию домашней электроники, транспортные средства, медицинские устройства, устройства IoT, промышленные автоматизированные системы и различные приборы и устройства.
+                </p>
+                    
+          <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="header_01">STM32CubeIDE. Принципы работы и настройка интерфейса SWO</div>
+
+            <div class="right_bar">
+            	<div class="image_wrapper_02"><span></span><a href="https://www.youtube.com/watch?v=nE-YrKpWjso"><img src="images/video_ide.jpg" alt="video" width=170px></a></div>
+                <p>Рассматривается работа и настройка проекта на микроконтроллере STM32F103RB для вывода информации, или переменных прошивки, через последовательный интерфейс вывода информации - SWO, использую функции языка "С" - printf и puts.</p>
+	      </div>
+                        
+          <div class="margin_bottom_10"></div>
+        </div> <!-- end of right side bar -->
+    	
+        <div class="cleaner"></div>    
+    </div> <!-- end of content wrapper -->
+    <div class="margin_bottom_10"></div>
+</div>
+</div>
+
+<div id="templatemo_footer">
+    <a href="#">alsou2070@gmail.com<br></a>
+    <a href="#">© 2023 Все права защищены</a>
+</div> <!-- end of footer -->
+    
+    <div class="margin_bottom_10"></div>
+    
+    <div class="content_section">
+		<div class="margin_bottom_10"></div>
+	</div>
+</body>
+</html>

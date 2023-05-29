@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+<meta charset="UTF-8" />
+<title>Методическое пособие микроконтроллера STM32</title>
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="templatemo_wrapper_outer">
+    <div id="templatemo_wrapper_inner">
+	
+        <div id="templatemo_banner"></div> <!-- end of banner -->
+    
+        <div id="templatemo_menu">
+	       <ul>
+               <li><a href="index.html">Главная</a></li>
+               <li><a href="theory.html">Теория</a></li>
+               <li><a href="video.html">Видеоматериалы</a></li>
+               <li><a href="lab.html">Лабораторные работы</a></li>
+               <li><a href="tests.html">Тесты</a></li>
+            </ul>
+        </div> <!-- end of menu -->
+    
+        <div id="templatemo_content_wrapper">
+    
+    	   <div class="templatemo_side_bar margin_right_10">
+               <div class="header_01">Категории</div>
+               <ul>
+                   <li><a href="main_info.html">Документация</a></li>
+                    <li><a href="mcu.html">Микроконтроллер STM32</a></li>
+                    <li><a href="arduino.html">Arduino</a></li>
+                    <li><a href="ide.html">Настройка среды разработки STM32CubeIDE</a></li>
+                    <li><a href="peripheral.html">Работа с переферийными устройствами</a></li>
+                    <li><a href="clanguage.html">Программирование на языке Си</a></li>
+                    <li><a href="info_site.html">О сайте</a></li>
+                </ul>
+
+                <div class="margin_bottom_20"></div>
+            </div> <!-- end of left side bar -->
+        
+            <div class="templatemo_content margin_right_10">
+                <div class="content_section">
+                    <div class="header_02">STM32 + CMSIS + STM32CubeIDE</div>
+                    <p>
+                        Возможно STM32CubeIDE и обладает рядом недостатков, но у нее, на мой взгляд, есть несколько преимуществ – таких как проприетарность и бесплатность, ради которых, как минимум, стоит обратить внимание на эту среду разработки, если вы не сделали этого раньше.
+                    </p>
+                    <p>
+                        Объектои прошивки выбране не очень распространенный микроконтроллер STM32F072 с ядром ARM Cortex-M0, для более привычных STM32F103 на ARM Cortex-M3, с попровкой на ядро, процесс идентичен.
+                    </p>
+                    <p>
+                        Все необходимые ресурсы можно скачать с сайта <a href="https://www.st.com/content/st_com/en.html">st.com</a>, и вот что нам понадобиться:
+                    </p>
+                    <ul>
+                        <li>Сама IDE, а именно, выбор под какую ОС</li>
+                    </ul>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_1_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <ul>
+                        <li>Библиотека CMSIS для ARM Cortex-M0, она находится в архиве STM32CubeFx, разбитом по версиям ядра. Сам архив, помимо CMSIS, содержит великое множество других ресурсов начиная от примеров работы с периферией до драйверов USB, собственно, именно этот архив используется, если создавать проект с помощью STM32Cube</li>
+                    </ul>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_2_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <ul>
+                        <li>Не помешает Datasheet и Reference Manual</li>
+                    </ul>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_3_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_4_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        После установки, запуска и выбора папки Workspace можно начать создание проекта. На текущий момент STM32CubeIDE версии 1.1.0, так что по расположению различных настроек следует исходить из этого.
+                    </p>
+                    <p>
+                        Создание нового проекта — File/New/STM32Project. После некоторого раздумия появляется окно выбора микроконтроллера, в моем случае это STM32F072RB в корпусе LQFP64, выбираю нужную строку, жму далее. Далее предлагается выбрать имя проекта, расположение, язык программирования C/C++, исполняемый файл/статическая библиотека и будет-ли проект сгенерирован с помощью CubeMX или сами с усами. Генерация кубом, в данном случае не нужна, поэтому тип проекта Empty — финиш.
+                    </p>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_5_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_6_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_7_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Слева, в окне Project Explorer, появилось дерево проекта, правда он не совсем Empty, как заказывали. Впринципе, если устраивает сгенерированная структура папок, можно добавить туда файлы из библиотеки CMSIS и работать дальше, но здесь я покажу как можно привести структуру проекта в гармонию со своим чувством прекрасного, поэтому удаляется всё, кроме скрипта линкера т.е. файла c расширением .ld — он еще пригодится.
+                    </p>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_8_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_9_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Все манипуляции с папками и файлами можно проводить как в проводнике так и внутри IDE, нажав правой кнопкой на название проекта, к примеру: правая кнопка –> new –> Folder. Если структура проекта изменялась вне IDE, то нужно просто обновить проект: правая кнопка –> Refresh.
+                    </p>
+                    <p>
+                        Вариант структуры проекта выглядит так:
+                    </p>
+                    <ul>
+                        <li>Startup – здесь будет храниться скрипт линкера, тот самый, оставшийся от сгенерированного проекта, а также startup файл взятый из CMSIS</li>
+                        <li>CMSIS\src и CMSIS\inc – здесь будут лежать исходники, файлы с расширением .c в папке scr и заголовочные файлы с расширением .h в папке inc соответственно, относящиеся к библиотеке CMSIS</li>
+                        <li>Core\src и Core\inc – здесь будет расположен собственно сам проект, для начала стоит положить туда main.c и main.h</li>
+                    </ul>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_10_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Теперь нужно перенести файлы библиотеки CMSIS в проект. Библиотека состоит из файлов ядра и файлов периферии. Файлы ядра начинаются с core_ или cmsis_ они общие для всех микроконтроллеров, использующих данное ядро. Файлы периферии содержат в названии наименование микроконтроллера stm32 и специфичны для конкретного производителя, в данном случае, компании STM.
+                    </p>
+                    <p>
+                        В распакованном виде архив содержит папку STM32Cube_FW_F0_V1.11.0, все пути указаны относительно этой папки. Итого, нужно скопировать:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        В CMSIS/inc:
+                    </p>
+                    <ul>
+                        <li>Drivers\CMSIS\Include\cmsis_compiler.h</li>
+                        <li>Drivers\CMSIS\Include\cmsis_gcc.h</li>
+                        <li>Drivers\CMSIS\Include\cmsis_version.h</li>
+                        <li>Drivers\CMSIS\Include\core_cm0.h</li>
+                        <li>Drivers\CMSIS\Device\ST\STM32F0xx\Include\stmf0xx.h</li>
+                        <li>Drivers\CMSIS\Device\ST\STM32F0xx\Include\stm32f072xb.h</li>
+                        <li>Drivers\CMSIS\Device\ST\STM32F0xx\Include\system_stm32f0xx.h</li>
+                    </ul>
+                    <p>
+                       В CMSIS\src: 
+                    </p>
+                    <ul>
+                        <li>Drivers\CMSIS\Device\ST\STM32F0xx\Source\Templates\system_stm32f0xx.c</li>
+                    </ul>
+                    <p>
+                        В Startup:
+                    </p>
+                    <ul>
+                        <li>Drivers\CMSIS\Device\ST\STM32F0xx\Source\Templates\gcc\startup_stm32f072xb.s</li>
+                    </ul>
+                    <p>
+                        Так выглядит проект в заполненном виде:
+                    </p>
+                     <div class="image_wrapper_01"><img src="images/site_2/pic_11_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Так как были проведены некоторые манипуляции с папками проекта, нужно отобразить это в настройках.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Правая кнопка по названию проекта -> Properties -> C/C++ Build -> Settings -> Tool Settings -> MCU GCC Linker -> General – здесь нужно указать новое расположение скрипта линкера с помощью кнопки Browse…
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_12_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Также нужно указать пути к файлам проекта
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Properties -> C/C++ General -> Includes
+                    </p>
+                    <p>
+                        Properties -> C/C++General -> Source Location
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        В Includes пути к папкам inc, а в Source Location логично было-бы к папкам src, но если так сделать, то в дереве проекта будут отдельно добавлены эти папки. Чтобы не загромождать визуально дерево, в Source Location можно указать корневые папки Core, CMSIS и Startup.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                     <div class="image_wrapper_01"><img src="images/site_2/pic_13_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                     <div class="image_wrapper_01"><img src="images/site_2/pic_14_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Для того чтобы проект скомпилировался нужно раскомментировать в файле stm32f0xx.h строку с названием микроконтроллера ну и конечно же в main.c добавить функцию main.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                     <div class="image_wrapper_01"><img src="images/site_2/pic_15_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                     <div class="image_wrapper_01"><img src="images/site_2/pic_16_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Собственно всё. Безошибочная компиляция и сразу же куда-то подевалось целых полтора килобайта памяти ОЗУ она же RAM, и сразу же вспоминается стек и куча, в процессе создания проекта они нигде не упоминались. Величина стека и кучи указана в файле скрипта линкера, тот что с расширением .ld, их можно и нужно изменять в соответствии с требованиями проекта. Эти значения находятся в начале файла в виде меток _Min_Heap_Size/_Min_Stack_Size с указанием размера в шестнадцатеричном виде.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_2/pic_17_site_2.jpeg" alt="image" width=450px></div>
+                    <div class="margin_bottom_20"></div>
+                    <p>
+                    Автор: heavyC1oud
+                </p>
+                <div class="margin_bottom_10"></div>
+                </div>
+            </div> <!-- end of content -->
+        
+            <div class="templatemo_side_bar">	
+                <div class="header_01">Микроконтроллер STM32</div>
+            
+                <div class="right_bar border_bottom">
+                    <p>
+                        Одна из линеек микроконтроллеров, которые производит компания STMicroelectronics.
+                    </p>
+                </div>
+                        
+                <div class="margin_bottom_10"></div>
+            
+                <div class="right_bar">
+                    <div class="header_01">Применяемость</div>
+                    <p>
+                        Создана для широкого спектра применений, и применяются в различных областях, включая автоматизацию домашней электроники, транспортные средства, медицинские устройства, устройства IoT, промышленные автоматизированные системы и различные приборы и устройства.
+                    </p>
+                </div>
+
+                <div class="margin_bottom_10"></div>
+                
+            </div> <!-- end of right side bar -->
+    	
+            <div class="cleaner"></div>    
+        </div> <!-- end of content wrapper -->
+    
+    </div>
+    </div>
+
+<div id="templatemo_footer">
+    <a href="#">alsou2070@gmail.com<br></a>
+    <a href="#">© 2023 Все права защищены</a>
+</div> <!-- end of footer -->
+    
+    <div class="margin_bottom_10"></div>
+    
+    <div class="content_section">
+		<div class="margin_bottom_10"></div>
+	</div>
+</body>
+</html>

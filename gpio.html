@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+<meta charset="UTF-8" />
+<title>Методическое пособие микроконтроллера STM32</title>
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="templatemo_wrapper_outer">
+<div id="templatemo_wrapper_inner">
+	
+    <div id="templatemo_banner"></div> <!-- end of banner -->
+    
+    <div id="templatemo_menu">
+	    <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="theory.html">Теория</a></li>
+            <li><a href="video.html">Видеоматериалы</a></li>
+            <li><a href="lab.html">Лабораторные работы</a></li>
+            <li><a href="tests.html">Тесты</a></li>
+        </ul>
+    </div> <!-- end of menu -->
+    
+    <div id="templatemo_content_wrapper">
+    
+    	<div class="templatemo_side_bar margin_right_10">
+        	
+            <div class="header_01">Категории</div>
+            	<ul>
+                	<li><a href="main_info.html">Документация</a></li>
+                    <li><a href="mcu.html">Микроконтроллер STM32</a></li>
+                    <li><a href="arduino.html">Arduino</a></li>
+                    <li><a href="ide.html">Настройка среды разработки STM32CubeIDE</a></li>
+                    <li><a href="peripheral.html">Работа с переферийными устройствами</a></li>
+                    <li><a href="clanguage.html">Программирование на языке Си</a></li>
+                    <li><a href="info_site.html">О сайте</a></li>
+                </ul>
+            <div class="margin_bottom_20"></div>
+        </div> <!-- end of left side bar -->
+        
+        <div class="templatemo_content margin_right_10">
+        
+        	<div class="content_section">
+                <div class="header_02">GPIO (General-Purpose Input/Output)</div>
+                 <p>
+                    GPIO (General-Purpose Input/Output) - это универсальные порты ввода/вывода, которые могут быть настроены как входы или выходы и использоваться для управления различными устройствами. В микроконтроллере STM32 GPIO могут быть настроены для многих различных приложений, таких как управление светодиодами, кнопками, дисплеями и другими периферийными устройствами.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Каждый GPIO порт в микроконтроллере STM32 имеет свой собственный номер и может быть настроен на работу в различных режимах. Например, с помощью регистров настройки можно установить режим работы порта, например, вход или выход, установить режимы работы светодиодов, задать положительную или отрицательную логику управления и т.д.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Также можно настроить встроенные подтягивающие резисторы или подключить внешние резисторы для обеспечения нужного уровня логического сигнала.
+                </p>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Для работы с GPIO в микроконтроллере STM32 нужно выполнить следующие шаги:
+                </p>
+                <ul>
+                    <li>Настроить порты на нужный режим работы (вход или выход) с помощью соответсвующих регистров.</li>
+                    <li>Настроить входные порты на работу с помощью подтягивающих резисторов или подключением внешних резисторов.</li>
+                    <li>Записать значение входного или выходного порта с помощью соответствующих управляющих регистров.</li>
+                    <li>Считать значение входного порта с помощью функций для чтения регистров.</li>
+                </ul>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    Пример кода на языке С для настройки GPIO порта в микроконтроллере STM32:
+                </p>
+                <div class="image_wrapper_01"><img src="images/gpio/pic_1_gpio.jpg" alt="image" width=450px></div>
+                <div class="margin_bottom_10"></div>
+                <p>
+                    В данном примере настраивается порт GPIOA.5 на работу в режиме выхода с частотой 50 МГц и устанавливается логический 1 на этом порту с помощью функции GPIO_SetBits(). Далее происходит бесконечный цикл.
+                </p>
+                <div class="margin_bottom_20"></div>
+            </div>
+        </div> <!-- end of content -->
+        
+        <div class="templatemo_side_bar">
+       		
+            	
+            <div class="header_01">Работа с переферийными устройствами</div>
+            
+            <div class="right_bar border_bottom">
+                <p>
+                    Микроконтроллеры STM32 имеют множество периферийных устройств, которые могут использоваться для выполнения различных задач, таких как звуковой сигнализации, управления двигателем или считывания сенсорных данных. Вот несколько типов периферийных устройств, которые доступны в микроконтроллерах STM32.
+                </p>
+			</div>  
+			<div class="margin_bottom_20"></div>
+            
+            <div class="header_01">STM32. Урок 8. GPIO. Схемотехника портов ввода-вывода микроконтроллера</div>
+
+            <div class="right_bar">
+            	<div class="image_wrapper_02"><span></span><a href="https://www.youtube.com/watch?v=fwhSBfiJZ4Y"><img src="images/video_gpio.jpg" alt="video" width=170px></a></div>
+                <p>
+                    Видео по портам ввода-вывода дает понимание, что такое GPIO, и/или порты ввода-вывода микроконтроллера. Как они могут быть настроены и использованы.
+                </p>
+	      </div>
+                        
+          <div class="margin_bottom_10"></div>
+        </div> <!-- end of right side bar -->
+    	
+        <div class="cleaner"></div>    
+    </div> <!-- end of content wrapper -->
+    
+</div>
+</div>
+
+<div id="templatemo_footer">
+    <a href="#">alsou2070@gmail.com<br></a>
+    <a href="#">© 2023 Все права защищены</a>
+</div> <!-- end of footer -->
+    
+    <div class="margin_bottom_10"></div>
+    
+    <div class="content_section">
+		<div class="margin_bottom_10"></div>
+	</div>
+</body>
+</html>

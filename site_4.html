@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+<meta charset="UTF-8" />
+<title>Методическое пособие микроконтроллера STM32</title>
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="templatemo_wrapper_outer">
+    <div id="templatemo_wrapper_inner">
+	
+        <div id="templatemo_banner"></div> <!-- end of banner -->
+    
+        <div id="templatemo_menu">
+	       <ul>
+               <li><a href="index.html">Главная</a></li>
+               <li><a href="theory.html">Теория</a></li>
+               <li><a href="video.html">Видеоматериалы</a></li>
+               <li><a href="lab.html">Лабораторные работы</a></li>
+               <li><a href="tests.html">Тесты</a></li>
+            </ul>
+        </div> <!-- end of menu -->
+    
+        <div id="templatemo_content_wrapper">
+    
+    	   <div class="templatemo_side_bar margin_right_10">
+               <div class="header_01">Категории</div>
+               <ul>
+                   <li><a href="main_info.html">Документация</a></li>
+                    <li><a href="mcu.html">Микроконтроллер STM32</a></li>
+                    <li><a href="arduino.html">Arduino</a></li>
+                    <li><a href="ide.html">Настройка среды разработки STM32CubeIDE</a></li>
+                    <li><a href="peripheral.html">Работа с переферийными устройствами</a></li>
+                    <li><a href="clanguage.html">Программирование на языке Си</a></li>
+                    <li><a href="info_site.html">О сайте</a></li>
+                </ul>
+		
+                <div class="margin_bottom_20"></div>
+            </div> <!-- end of left side bar -->
+        
+            <div class="templatemo_content margin_right_10">
+                <div class="content_section">
+                    <div class="header_01">Управление портами ввода-вывода через функции библиотеки HAL</div>
+                    <p>
+                        Допустим, нам необходимо перенести нашу последнюю программу на другой микроконтроллер семейства STM32. Это потребует множества переписываний и изменений в коде, включая открытие технической документации, проверку имен и форматов, исправление ошибок и т.д. Однако, все эти трудности могут быть устранены с помощью библиотеки HAL, которая позволяет работать с понятными объектами вместо сложных регистров конфигурации. Изучим работу с портами GPIO и выводами портов, управление которыми не сложнее, чем в системе Arduino, за исключением большего количества режимов.
+                    </p>
+                    <div class="margin_bottom_20"></div>
+                    <div class="header_02">Постановка задачи</div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Необходимо установить конфигурацию выводов:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        PB12 – Вход с подтягивающим на шину питания резистором. К нему у нас подключена кнопка.
+                    </p>
+                    <p>
+                        PB13 – Активный выход. Мы подключили к нему светодиод.
+                    </p>
+                    <p>
+                        PC13 – Активный выход. К нему подключен светодиод платы.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Реализовать алгоритм управления светодиодом от кнопки:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Кнопка нажата – светодиод светится;
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Кнопка отжата – светодиод погашен.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Постановка задачи.
+                    </p>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_1_site_4.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                         С помощью STM32CubeMX  создадим проект Lesson8_1, в котором настроим только систему тактирования. Конфигурацию портов создавать нее будем. Сделаем это с помощью функций библиотеки HAL. Будем заполнять файл main.c постепенно.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="header_02">Конфигурация портов с помощью библиотеки HAL.</div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Команды инициализации будем вставлять в блок
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_2_site_4.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Файла maiv.c.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Если мы не разрешили тактирование портов в STM32CubeMX, то надо это сделать функцией  __HAL_RCC_GPIOx_CLK_ENABLE().
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Не будем вдаваться в подробности, просто выполним команды разрешения портов B и C.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        __HAL_RCC_GPIOB_CLK_ENABLE(); // разрешение порта B
+                    </p>
+                    <p>
+                        __HAL_RCC_GPIOC_CLK_ENABLE(); // разрешение порта C
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Заходим в справочник по функциям HAL для управления портами и видим на первом месте функцию инициализации HAL_GPIO_Init.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Void HAL_GPIO_Init (GPIO_TypeDef * GPIOx, GPIO_InitTypeDef * GPIO_Init)
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Функция имеет 2 аргумента:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOx – это имя порта, с которым мы работаем. Указывается в общепринятом виде:  GPIOA, GPIOB, GPIOC и т.д.
+                    </p>
+                    <p>
+                        GPIO_Init – указатель на структуру параметров инициализации.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Структура описывается так:
+                    </p>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_3_site_4.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Подробно назначение элементов структуры и варианты значений для них можно посмотреть в справочнике.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Для инициализации порта нам необходимо объявить структуру типа GPIO_InitTypeDef.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIO_InitTypeDef GPIO_InitStruct = {0};
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Задаем нужные элементы структуры для вывода PB12.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_4_site_4.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Вызываем функцию HAL_GPIO_Init для порта B. 
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Делаем тоже самое для выводов PB13 и PC13.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="header_02">Конфигурация портов с помощью библиотеки HAL.</div>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_5_site_4.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Установка конфигурации наших трех выходов закончена.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Дальше нам необходимо считать состояние вывода PB12. К нему мы подключили кнопку.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Сделать это можно функцией HAL_GPIO_ReadPin.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Полный формат: GPIO_PinState HAL_GPIO_ReadPin (GPIO_TypeDef * GPIOx, uint16_t GPIO_Pin).
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        У функции 2 аргумента:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOx – выбор порта (GPIOA, GPIOB, GPIOC … ).
+                    </p>
+                    <p>
+                        Pin – номер вывода (GPIO_PIN_0 … GPIO_PIN_15).
+                    </p>
+                    <p>
+                        Функция возвращает состояние вывода, которое может принимать 2 значения:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIO_PIN_SET – высокий уровень;
+                    </p>
+                    <p>
+                        GPIO_PIN_RESET – низкий уровень.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Блок проверки состояния кнопки будет выглядеть так.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_6_site_4.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Вставляем его в программу, но уже в цикл while(1) перед завершением блока.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_7_site_4.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Теперь надо в зависимости от положения кнопки установить вывод PB13 (светодиод) в нужное состояние.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Для установки и сброса выводов портов есть функция HAL_GPIO_WritePin.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Формат: void HAL_GPIO_WritePin (GPIO_TypeDef * GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState).
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Аргументы:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        GPIOx – выбор порта (GPIOA, GPIOB, GPIOC … ).
+                    </p>
+                    <p>
+                        Pin – номер вывода (GPIO_PIN_0 … GPIO_PIN_15).
+                    </p>
+                    <p>
+                        PinState – состояние  вывода:
+                    </p>
+                    <p>
+                        GPIO_PIN_SET – высокий уровень;
+                    </p>
+                    <p>
+                        GPIO_PIN_RESET – низкий уровень.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Чтобы зажечь светодиод надо вызвать функцию:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET); // сброс вывода PB13 
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Погасить светодиод можно функцией:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); // установка вывода PB13 
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Вставляем эти команды в ветки оператора условного перехода.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_8_site_4.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Для обращения к кнопке, светодиоду мы использовали абсолютные имена – номера выводов, название портов. Это не совсем удобно. 
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Давайте создадим новый проект Lesson8_2. Настроим конфигурацию системы тактирования, назначим вывод PB12 на режим вход с подтягивающим к питанию резистором, определим вывод PB13, как активный вывод. И самое главное – присвоим им имена (User label) Button и Led.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Откроем новый проект. Заглянем в файл main.h.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_9_site_4.jpg" alt="image" width=450px></div>                    
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Там вот такой блок.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_10_site_4.jpg" alt="image" width=450px></div>      
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        STM32CubeMX сделал для кнопки 2 переназначения основных аргументов HAL-функций управления портами :
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        К имени вывода (Button) он добавил _Pin и присвоил стандартное название номера вывода GPIO_PIN_12.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        К имени вывода (Button) он добавил _GPIO_Port и присвоил стандартное название порта GPIOB.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        И такую же операцию конфигуратор совершил над именем светодиода (Led).
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Теперь в функциях в качестве параметров мы можем использовать символьные имена, часть которых мы задали на этапе конфигурации с помощью STM32CubeMX.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        С учетом этого наша конструкция в цикле while() будет выглядеть так:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_4/pic_11_site_4.jpg" alt="image" width=450px></div> 
+                    <div class="margin_bottom_20"></div>
+                    <p>
+                    Автор: Эдуард
+                </p>
+                <div class="margin_bottom_10"></div>
+                </div>
+            </div> <!-- end of content -->
+        
+            <div class="templatemo_side_bar">	
+                <div class="header_01">Микроконтроллер STM32</div>
+            
+                <div class="right_bar border_bottom">
+                    <p>
+                        Одна из линеек микроконтроллеров, которые производит компания STMicroelectronics.
+                    </p>
+                </div>
+                        
+                <div class="margin_bottom_10"></div>
+            
+                <div class="right_bar">
+                    <div class="header_01">Применяемость</div>
+                    <p>
+                        Создана для широкого спектра применений, и применяются в различных областях, включая автоматизацию домашней электроники, транспортные средства, медицинские устройства, устройства IoT, промышленные автоматизированные системы и различные приборы и устройства.
+                    </p>
+                </div>
+  
+                <div class="margin_bottom_10"></div>
+                
+            </div> <!-- end of right side bar -->
+    	
+            <div class="cleaner"></div>    
+        </div> <!-- end of content wrapper -->
+    
+    </div>
+    </div>
+
+<div id="templatemo_footer">
+    <a href="#">alsou2070@gmail.com<br></a>
+    <a href="#">© 2023 Все права защищены</a>
+</div> <!-- end of footer -->
+    
+    <div class="margin_bottom_10"></div>
+    
+    <div class="content_section">
+		<div class="margin_bottom_10"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+<meta charset="UTF-8" />
+<title>Методическое пособие микроконтроллера STM32</title>
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="templatemo_wrapper_outer">
+    <div id="templatemo_wrapper_inner">
+	
+        <div id="templatemo_banner"></div> <!-- end of banner -->
+    
+        <div id="templatemo_menu">
+	       <ul>
+               <li><a href="index.html">Главная</a></li>
+               <li><a href="theory.html">Теория</a></li>
+               <li><a href="video.html">Видеоматериалы</a></li>
+               <li><a href="lab.html">Лабораторные работы</a></li>
+               <li><a href="tests.html">Тесты</a></li>
+            </ul>
+        </div> <!-- end of menu -->
+    
+        <div id="templatemo_content_wrapper">
+    
+    	   <div class="templatemo_side_bar margin_right_10">
+               <div class="header_01">Категории</div>
+               <ul>
+                   <li><a href="main_info.html">Документация</a></li>
+                    <li><a href="mcu.html">Микроконтроллер STM32</a></li>
+                    <li><a href="arduino.html">Arduino</a></li>
+                    <li><a href="ide.html">Настройка среды разработки STM32CubeIDE</a></li>
+                    <li><a href="peripheral.html">Работа с переферийными устройствами</a></li>
+                    <li><a href="clanguage.html">Программирование на языке Си</a></li>
+                    <li><a href="info_site.html">О сайте</a></li>
+                </ul>
+	
+                <div class="margin_bottom_20"></div>
+            </div> <!-- end of left side bar -->
+        
+            <div class="templatemo_content margin_right_10">
+                <div class="content_section">
+                   <div class="header_02">STM32 с нуля. GPIO. Использование портов ввода-вывода.</div>
+                    <div class="image_wrapper_01"><img src="images/site_1/site_1_open.jpg" alt="image" width=100px></div>
+                    <p>
+                        В STM32F10x имеется возможность использования различных режимов работы портов ввода-вывода. В настоящее время доступно множество таких режимов, а именно:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <ul>
+                        <li>Input floating</li>
+                        <li>Input pull-up</li>
+                        <li>Input-pull-down</li>
+                        <li>Analog</li>
+                        <li>Output open-drain</li>
+                        <li>Output push-pull</li>
+                        <li>Alternate function push-pull</li>
+                        <li>Alternate function open-drain</li>
+                    </ul>
+                    
+                    <p>
+                        То есть при работе на вход:
+                    </p>
+                    <ul>
+                        <li>Вход – Hi-Z</li>
+                        <li>Вход – подтяжка вверх</li>
+                        <li>Вход – подтяжка вниз</li>
+                        <li>Вход – аналоговый</li>
+                    </ul>
+                    <p>
+                        При работе порта на выход имеем следующие варианты:
+                    </p>
+                    <ul>
+                        <li>Выход – с открытым коллектором</li>
+                        <li>Выход – двухтактный</li>
+                        <li>Альтернативные функции – выход типа "с открытым коллектором"</li>
+                        <li>Альтернативные функции – двухтактный выход</li>
+                    </ul>
+                    <p>
+                        На сайте доступна документация для микроконтроллера STM32F103CB, которая содержит таблицу с описанием альтернативных функций для каждого вывода микроконтроллера. Ссылку на документацию можно добавить отдельным предложением. Документацию можно найти по этой ссылке: STM32F103CB datasheet. Вот, например, выводы PA9, PA10:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_1/pic_1_site_1.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        В столбце Default видим, какие функции будут выполнять эти пины при их настройке для работы в режиме Alternative function. То есть, настроив эти пины соответствующим образом они из просто PA9 и PA10 превратятся в Rx и Tx для USART1. А для чего же тогда столбец Remap? А это не что иное, как очень полезная функция ремаппинга портов. Благодаря ремапу, Tx USARTA ’а, например, может переместится с пина PA9 на PB6. Довольно часто эта  функция оказывается невероятно полезной.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Ну с режимами вроде бы все более-менее понятно, пришло время окинуть взором регистры, которыми порты ввода-вывода управляются.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Раз уж только что обсудили в каких режимах могут существовать выводы STM32F10x, сразу же давайте разберемся, как же их можно собственно перевести в нужный режим. А для этого выделены два регистра – CRL и CRH. В первом конфигурируются выводы от 0 до 7, во втором, соответственно от 8 до 15. Регистры, как вы помните, 32-х разрядные. То есть на 8 выводов приходится 32 бита - получается 4 бита на одну ножку. Открываем даташит и видим:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_1/pic_2_site_1.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Например, надо нам настроить ножку PB5. Идем в регистр GPIOB->CRL и выставляем соответствующие биты так как нам требуется (на картинке 32-х битный регистр CRL). Для PB5 это биты:
+                    </p>
+                    <div class="image_wrapper_01"><img src="images/site_1/pic_3_site_1.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        После 8-битных контроллеров все это может показаться сложным и нелогичным, но на самом деле реализовано все довольно изящно. Посмотрим, что тут есть еще...
+                    </p>
+                    <ul>
+                        <li>
+                            Выходной регистр GPIOx_ODR – напоминает регистр PORTx в AVR. Все что попадает в этот регистр сразу же попадает во внешний мир. Регистр 32-разрядный, а ножек всего 16. Как думаете, для чего используются оставшиеся 16? Все очень просто, биты регистра с 15 по 31 не используются вовсе )
+                        </li>
+                        <li>
+                            Входной регистр GPIOx_IDR – аналог PINx в AVR. Структура его похожа на упомянутую структуру ODR. Все, что появляется на входе микроконтроллера, сразу же оказывается во входном регистре IDR.
+                        </li>
+                        <li>
+                            Еще два полезных регистра GPIOx_BSSR и GPIOx_BRR. Они позволяют менять значения битов в регистре ODR напрямую, без использования привычных бит-масок. То есть, хочу я, например, выставить в единицу пятый бит ODR. Записываю единичку в пятый бит GPIOx_BSSR, и все, цель достигнута. Вдруг захотелось сбросить пятый бит ODR - единицу в 5 бит GPIOx_BRR и готово.
+                        </li>
+                    </ul>
+                    <p>
+                        Итак, основные регистры рассмотрели, но, на самом-то деле, мы в наших примерах будем делать все иначе, используя Standard Peripheral Library. Так что идем изучать библиотеку.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        За GPIO в SPL отвечают файлы stm32f10x_gpio.h и stm32f10x_gpio.c.За конфигурацию портов отвечает структура GPIO_InitTypeDef:
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_1/pic_4_site_1.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Видим, что структура имеет три поля: GPIO_PIN, GPIO_Speed и GPIO_Mode. Нетрудно догадаться, что первая отвечает за номер ножки порта, которую мы хотим настроить, вторая – за скорость работы порта, ну и третья, собственно, за режим. Таким образом, для настройки вывода нам всего лишь нужно объявить переменную типа GPIO_InitTypeDef и заполнить ее поля нужными значениями. Все возможные значения полей тут же – в stm32f10x_gpio.h. Например,
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_1/pic_5_site_1.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Все значения уже рассчитаны создателями SPL, так что для настройки какого-нибудь вывода для работы в режиме Output push-pull надо всего лишь в соответствующей структуре задать поле: GPIO_Mode =  GPIO_Mode_Out_PP.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Ну вот, структура объявлена, поля заполнены как надо, что же дальше? Ведь мы всего лишь создали переменную. Причем тут регистры, микроконтроллеры и вообще электроника? Лезем в файл stm32f10x_gpio.c и находим там множество различных функций для работы с GPIO.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Рассмотрим функцию GPIO_Init() (код приводить не буду, все в файле библиотеки). Так вот, эта функция как раз и связывает нашу созданную структуру и конкретные регистры контроллера. То есть мы передаем в эту функцию переменную, в соответствии с которой выставляются нужные биты нужных регистров микроконтроллера.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Отвлечемся ненадолго от портов ввода-вывода и обсудим один довольно тонкий момент. Чтобы использовать порты, либо любую другую периферию, обязательно надо включить тактирование. И порты, и периферия изначально отключены от тактирования, так что без этого действия ничего не заведется. Программа скомпилируется, но на деле работать ничего не будет. За тактирование в SPL отвечают файлы stm32f10x_rcc.c и stm32f10x_rcc.h. Не забывайте добавлять их в проект.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Перейдем к программированию, заставим диод помигать Чтобы лучше разобраться с Standard Peripheral Library немножко усложним обычное мигание диодом – будем опрашивать кнопку, и если она нажата – диод загорается, иначе – гаснет. Запускаем Keil, создаем проект, добавляем все нужные файлы, не забываем про CMSIS. Из SPL для этого проекта нам понадобятся 4 файла, уже упомянутые выше. Создание нового проекта описано в предыдущей статье учебного курса и также там можно найти ссылки на библиотеки.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <div class="image_wrapper_01"><img src="images/site_1/pic_6_site_1.jpg" alt="image" width=450px></div>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                       Функция GPIO_StructInit(&port) – принимает в качестве аргумента указатель на переменную port. Эта функция заполняет поля структуры, переданной ей в качестве аргумента значениями по умолчанию.
+                    </p>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                        Еще две функции, которые мы использовали:
+                    </p>
+                    <ul>
+                        <li>GPIO_SetBits(GPIOA, GPIO_Pin_0);</li>
+                        <li>GPIO_ResetBits(GPIOA, GPIO_Pin_0);</li>
+                    </ul>
+                    <div class="margin_bottom_10"></div>
+                    <p>
+                    Автор: Aveal
+                </p>
+                <div class="margin_bottom_10"></div>
+                </div>
+            </div> <!-- end of content -->
+        
+            <div class="templatemo_side_bar">	
+                <div class="header_01">Микроконтроллер STM32</div>
+            
+                <div class="right_bar border_bottom">
+                    <p>
+                        Одна из линеек микроконтроллеров, которые производит компания STMicroelectronics.
+                    </p>
+                </div>
+                        
+                <div class="margin_bottom_10"></div>
+            
+                <div class="right_bar">
+                    <div class="header_01">Применяемость</div>
+                    <p>
+                        Создана для широкого спектра применений, и применяются в различных областях, включая автоматизацию домашней электроники, транспортные средства, медицинские устройства, устройства IoT, промышленные автоматизированные системы и различные приборы и устройства.
+                    </p>
+                </div>
+                <div class="margin_bottom_10"></div>
+                
+            </div> <!-- end of right side bar -->
+    	
+            <div class="cleaner"></div>    
+        </div> <!-- end of content wrapper -->
+    
+    </div>
+    </div>
+
+<div id="templatemo_footer">
+    <a href="#">alsou2070@gmail.com<br></a>
+    <a href="#">© 2023 Все права защищены</a>
+</div> <!-- end of footer -->
+    
+    <div class="margin_bottom_10"></div>
+    
+    <div class="content_section">
+		<div class="margin_bottom_10"></div>
+	</div>
+</body>
+</html>

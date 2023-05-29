@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+<meta charset="UTF-8" />
+<title>Методическое пособие микроконтроллера STM32</title>
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+<script src="test.js"></script>
+</head>
+<body>
+<div id="templatemo_wrapper_outer">
+<div id="templatemo_wrapper_inner">
+	
+    <div id="templatemo_banner"></div> <!-- end of banner -->
+    
+    <div id="templatemo_menu">
+	    <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="theory.html">Теория</a></li>
+            <li><a href="video.html">Видеоматериалы</a></li>
+            <li><a href="lab.html">Лабораторные работы</a></li>
+            <li><a href="tests.html" class="current">Тесты</a></li>
+        </ul>
+    </div> <!-- end of menu -->
+    
+    <div id="templatemo_content_wrapper">
+    
+    	<div class="templatemo_side_bar margin_right_10">
+        	
+            <div class="header_01">Категории</div>
+            	<ul>
+                	<li><a href="main_info.html">Документация</a></li>
+                    <li><a href="mcu.html">Микроконтроллер STM32</a></li>
+                    <li><a href="arduino.html">Arduino</a></li>
+                    <li><a href="ide.html">Настройка среды разработки STM32CubeIDE</a></li>
+                    <li><a href="peripheral.html">Работа с переферийными устройствами</a></li>
+                    <li><a href="clanguage.html">Программирование на языке Си</a></li>
+                    <li><a href="info_site.html">О сайте</a></li>
+                </ul>
+	
+            <div class="margin_bottom_20"></div>
+        </div> <!-- end of left side bar -->
+        
+        <div class="templatemo_content margin_right_10">
+        
+        	<div class="content_section">
+            
+           	  <div class="header_02">Контрольные вопросы</div>
+                <p>1. Какова основная архитектура микроконтроллера STM32?</p>
+                <p>
+                    <input type="radio"  name ="q1" value="1">- А) Одноядерная архитектура<br>
+                    <input type="radio" name ="q1" value="2">- Б) Многоядерная архитектура<br>
+                    <input type="radio" name ="q1" value="3">- В) Архитектура с разделением функций ядра
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>2. Для чего используется среда разработки μVision5 для STM32?</p>
+                <p>
+                    <input type="radio" name="q2" value="1">- А) Для отладки и тестирования прошивок<br>
+                    <input type="radio" name="q2" value="2">- Б) Для программирования периферийных устройств<br>
+                    <input type="radio" name="q2" value="3">- В) Для настройки портов ввода-вывода в STM32
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>3. Как настраиваются порты ввода-вывода на микроконтроллере STM32?</p>
+                <p>
+                    <input type="radio" name="q3" value="1">- А) Через регистры GPIO<br>
+                    <input type="radio" name="q3" value="2">- Б) Через среду разработки μVision5<br>
+                    <input type="radio" name="q3" value="3">- В) Через BIOS на компьютере
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>4. Как производится работа с прерываниями и таймерами в микроконтроллере STM32?</p>
+                <p>
+                    <input type="radio" name="q4" value="1">- А) Через библиотеку CMSIS<br>
+                    <input type="radio" name="q4" value="2">- Б) Через устройства, подключенные к порту ввода-вывода<br>
+                    <input type="radio" name="q4" value="3">- В) Через регистры GPIO
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>5. Для чего используется АЦП и ЦАП в микроконтроллере STM32?</p>
+                <p>
+                    <input type="radio" name="q5" value="1">- А) Для работы с аналоговыми сигналами<br>
+                    <input type="radio" name="q5" value="2">- Б) Для работы с цифровыми сигналами<br>
+                    <input type="radio" name="q5" value="3">- В) Для настройки портов ввода-вывода в STM32
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>6. Какие интерфейсы связи поддерживает микроконтроллер STM32?</p>
+                <p>
+                    <input type="radio" name="q6" value="1">- А) SPI, I2C, USART<br>
+                    <input type="radio" name="q6" value="2">- Б) USB, Ethernet, WiFi<br>
+                    <input type="radio" name="q6" value="3">- В) Bluetooth, NFC, RFID
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>7. Как работать с периферийными устройствами на базе микроконтроллера STM32?</p>
+                <p>
+                    <input type="radio" name="q7" value="1">- А) Через библиотеку CMSIS<br>
+                    <input type="radio" name="q7" value="2">- Б) Через регистры GPIO<br>
+                    <input type="radio" name="q7" value="3">- В) Через устройства, подключенные к порту ввода-вывода
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>8. Что такое HAL и CMSIS в микроконтроллере STM32?</p>
+                <p>
+                    <input type="radio" name="q8" value="1">- А) Библиотеки для настройки портов ввода-вывода<br>
+                    <input type="radio" name="q8" value="2">- Б) Библиотеки для работы с прерываниями и таймерами<br>
+                    <input type="radio" name="q8" value="3">- В) Библиотеки для управления периферийными устройствами
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>9. Как создать собственные библиотеки на базе STM32?</p>
+                <p>
+                    <input type="radio" name="q9" value="1">- А) Через регистры GPIO<br>
+                    <input type="radio" name="q9" value="2">- Б) Через среду разработки μVision5<br>
+                    <input type="radio" name="q9" value="3">- В) Через язык программирования С
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>10. Какие задачи можно выполнять на языке программирования С для микроконтроллера STM32?</p>
+                <p>
+                    <input type="radio" name="q10" value="1">- А) Работа с тачскрином<br>
+                    <input type="radio" name="q10" value="2">- Б) Работа с прерываниями и таймерами<br>
+                    <input type="radio" name="q10" value="3">- В) Работа с WiFi-модулем
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>11. Как называется программа, которую необходимо установить для программирования STM32?</p>
+                <p>
+                    <input type="radio" name="q11" value="1">- А) ST-LINK Utility<br>
+                    <input type="radio" name="q11" value="2">- Б) Keil<br>
+                    <input type="radio" name="q11" value="3">- C) STM Studio
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>12. Что следует сделать перед началом процесса записи прошивки на STM32?</p>
+                <p>
+                    <input type="radio" name="q12" value="1">- А) Выбрать нужный файл прошивки<br>
+                    <input type="radio" name="q12" value="2">- Б) Отключить кабель USB<br>
+                    <input type="radio" name="q12" value="3">- В) Выключить компьютер
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>13. Как выбрать нужную конфигурацию портов ввода-вывода в STM32?</p>
+                <p>
+                    <input type="radio" name="q13" value="1">- А) Через среду разработки Keil<br>
+                    <input type="radio" name="q13" value="2">- Б) Через регистры GPIO<br>
+                    <input type="radio" name="q13" value="3">- В) Через STM Studio
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>14. Для чего используется загрузчик (Bootloader) на STM32?</p>
+                <p>
+                    <input type="radio" name="q14" value="1">- А) Для программирования микроконтроллера по UART<br>
+                    <input type="radio" name="q14" value="2">- Б) Для работы с периферийными устройствами<br>
+                    <input type="radio" name="q14" value="3">- В) Для работы с Ethernet-портом
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>15. Как подключить кнопку к входу GPIO микроконтроллера STM32?</p>
+                <p>
+                    <input type="radio" name="q15" value="1">- А) Одним проводом к земле, другим проводом к входу GPIO<br>
+                    <input type="radio" name="q15" value="2">- Б) Один провод к питанию, другой провод к входу GPIO<br>
+                    <input type="radio" name="q15" value="3">- В) Один провод к земле, другой провод к питанию
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>16. Как называется функция, которая разрешает прерывания на конкретном GPIO?</p>
+                <p>
+                    <input type="radio" name="q16" value="1">- А) EXTI_Init<br>
+                    <input type="radio" name="q16" value="2">- Б) GPIO_Init<br>
+                    <input type="radio" name="q16" value="3">- В) NVIC_Init
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>17. Как настроить прерывания на входе GPIO микроконтроллера STM32?</p>
+                <p>
+                    <input type="radio" name="q17" value="1">- А) Настроить EXTI на входе GPIO<br>
+                    <input type="radio" name="q17" value="2">- Б) Настроить GPIO на обработку прерываний<br>
+                    <input type="radio" name="q17" value="3">- В) Настроить NVIC для GPIO
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            
+            <div class="margin_bottom_20 horizontal_divider"></div> 
+			<div class="margin_bottom_20"></div>
+            
+            <div class="content_section">
+                <p>18. Какой тип прерывания следует использовать для обработки события нажатия кнопки?</p>
+                <p>
+                    <input type="radio" name="q18" value="1">- А) GPIO EXTI<br>
+                    <input type="radio" name="q18" value="2">- Б) TIM<br>
+                    <input type="radio" name="q18" value="3">- В) DMA
+                </p>
+              <div class="margin_bottom_20"></div>
+                
+                <div class="cleaner"></div>
+            </div>
+            <button onclick="checkAnswers(test)">Проверка</button>
+            <div class="margin_bottom_20"></div>
+            <div class="header_02" id="result"></div>
+            
+        	<div class="margin_bottom_20"></div>
+        </div> <!-- end of content -->
+        
+        <div class="templatemo_side_bar">
+
+            <div class="header_01">О курсе</div>
+            <div class="right_bar border_bottom">
+                <p>Цель курса -  это оттачивание навыков и знаний в различных областях использования микроконтроллеров STM32 для продвижения в карьере, создания собственных проектов или для повышения компетенции интересующихся в области микроконтроллеров STM32. Основной задачей курса будет проверка существующих навыков и умений участников в работе с микроконтроллерами STM32. Курс по решению тестов на знание микроконтроллеров STM32 включает в себя ряд заданий разной трудности. Задания помогут проверить свои знания и расширить их. Цель заключается в том, чтобы участникам стало легче обращаться с микроконтроллерами STM32 и научиться создавать сложные устройства и программы.</p>
+			</div>
+                        
+            <div class="margin_bottom_10"></div>
+            
+			<div class="right_bar">
+                <div class="header_01">Содержание</div>
+                <p>Включает несколько разделов, каждый из которых будет проверять определенные аспекты знаний и навыков в работе с данной технологией.</p>
+			</div>
+            
+			<div class="margin_bottom_20"></div>        
+          <div class="margin_bottom_10"></div>
+        </div> <!-- end of right side bar -->
+    	
+        <div class="cleaner"></div>    
+    </div> <!-- end of content wrapper -->
+    
+</div>
+</div>
+    
+    <div id="templatemo_footer">
+    <a href="#">alsou2070@gmail.com<br></a>
+    <a href="#">© 2023 Все права защищены</a>
+</div> <!-- end of footer -->
+    
+    <div class="margin_bottom_10"></div>
+    
+    <div class="content_section">
+		<div class="margin_bottom_10"></div>
+	</div>
+</body>
+</html>
